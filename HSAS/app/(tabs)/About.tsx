@@ -1,12 +1,34 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
-const About = ({ navigation }: { navigation: any }) => {
+type AboutProps = {
+  navigation: NavigationProp<any>;
+};
+
+type ButtonProps = {
+  title: string;
+  onPress: () => void;
+};
+
+const About: React.FC<AboutProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>About Screen</Text>
-      <Button title="Go to Settings" onPress={() => navigation.navigate('Settings')} />
+      <Text style={styles.title}>About JHOMD</Text>
+      <Text style={styles.subtitle}>We provide trendy clothing for everyone. Our goal is to bring you stylish and comfortable fashion.</Text>
+      
+      <View style={styles.buttonGroup}>
+        <CustomButton title="Go to Settings" onPress={() => navigation.navigate('Settings')} />
+      </View>
     </View>
+  );
+};
+
+const CustomButton: React.FC<ButtonProps> = ({ title, onPress }) => {
+  return (
+    <Pressable style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </Pressable>
   );
 };
 
@@ -15,12 +37,35 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20,
+    color: '#333',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  buttonGroup: {
+    width: '80%',
+  },
+  button: {
+    backgroundColor: '#333',
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

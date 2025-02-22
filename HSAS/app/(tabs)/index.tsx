@@ -1,66 +1,71 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
-const Home = ({ navigation }: { navigation: any }) => {
+type HomeProps = {
+  navigation: NavigationProp<any>;
+};
+
+type ButtonProps = {
+  title: string;
+  onPress: () => void;
+};
+
+const Home: React.FC<HomeProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      {/* Title */}
-      <Text style={styles.title}>Welcome to JHOMD</Text>
+      <Text style={styles.title}>JHOMD</Text>
+      <Text style={styles.subtitle}>Trendy Clothing for Everyone</Text>
       
-      {/* Description Text */}
-      <Text style={styles.description}>
-        This is the starting point of your app. You can navigate to other pages using the buttons below.
-      </Text>
-      
-      {/* Buttons for navigation, arranged vertically */}
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Go to Services"
-          onPress={() => navigation.navigate('Services')}
-        />
-        <View style={styles.buttonSpacing} />
-        <Button
-          title="Go to About"
-          onPress={() => navigation.navigate('About')}
-        />
-        <View style={styles.buttonSpacing} />
-        <Button
-          title="Go to Settings"
-          onPress={() => navigation.navigate('Settings')}
-        />
+      <View style={styles.buttonGroup}>
+        <CustomButton title="Services" onPress={() => navigation.navigate('Services')} />
+        <CustomButton title="About" onPress={() => navigation.navigate('About')} />
+        <CustomButton title="Settings" onPress={() => navigation.navigate('Settings')} />
       </View>
     </View>
   );
 };
 
-// Styles for the screen
+const CustomButton: React.FC<ButtonProps> = ({ title, onPress }) => {
+  return (
+    <Pressable style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </Pressable>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f5f5f5', // light background color
+    backgroundColor: '#fff',
   },
   title: {
-    fontSize: 26,
+    fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 20,
     color: '#333',
+    marginBottom: 10,
   },
-  description: {
-    fontSize: 16,
-    marginBottom: 30,
-    textAlign: 'center',
+  subtitle: {
+    fontSize: 18,
     color: '#666',
-    paddingHorizontal: 20, // Add some padding to avoid text touching edges
+    marginBottom: 30,
   },
-  buttonContainer: {
-    width: '100%',
-    paddingHorizontal: 40, // Adds some horizontal padding to center the buttons
+  buttonGroup: {
+    width: '80%',
   },
-  buttonSpacing: {
-    marginBottom: 15, // Adds space between buttons
+  button: {
+    backgroundColor: '#333',
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 
